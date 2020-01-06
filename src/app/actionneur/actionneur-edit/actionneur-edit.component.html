@@ -1,0 +1,47 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Actionneurs disponibles</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Actionneurs disponibles</h2>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="actionneur" #editForm="ngForm" (ngSubmit)="save()">
+    
+      <div class="form-group">
+        <label>Id</label>
+        {{actionneur._id || 'n/a'}} 
+      </div>
+    
+      <div class="form-group">
+        <label for="name">Nom </label>
+        <input [(ngModel)]="actionneur.name" id="name" name="name" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="type_grandeur">Element </label>
+        <input [(ngModel)]="actionneur.type_grandeur" id="type_grandeur" name="type_grandeur" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input [(ngModel)]="actionneur.description" id="description" name="description" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="effectif">Effectif</label>
+        <input type="number" [(ngModel)]="actionneur.effectif" id="effectif" name="effectif" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="statut">Etat du l'actionneur</label>
+        <input [(ngModel)]="actionneur.statut" id="statut" name="statut" class="form-control">
+      </div>
+    
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    </form>
+  </div>
+</div>

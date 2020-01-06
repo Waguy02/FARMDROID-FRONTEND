@@ -1,0 +1,54 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Capteurs disponibles</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title" *ngIf="capteur._id;else addTitle">Modification du capteur </h2>
+    <ng-template #addTitle> <h2 class="title">Création d'un capteur </h2></ng-template>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="capteur" #editForm="ngForm" (ngSubmit)="save()">
+
+      <div *ngIf="capteur._id" class="form-group">
+        <label >Id</label>
+        {{capteur._id || 'n/a'}}
+      </div>
+
+      <div class="form-group">
+        <label for="name">Nom du capteur</label>
+        <input [(ngModel)]="capteur.name" id="name" name="name" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="type_grandeur">Grandeur mesuree</label>
+        <input [(ngModel)]="capteur.type_grandeur" id="type_grandeur" name="type_grandeur" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input [(ngModel)]="capteur.description" id="description" name="description" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="effectif">Effectif</label>
+        <input type="number" [(ngModel)]="capteur.effectif" id="effectif" name="effectif" class="form-control">
+      </div>
+
+      <div class="form-group">
+        Capteur activé
+        <mat-slide-toggle
+        [checked]="capteur.statut"
+        (change)="capteur.statut =$event.source.checked"
+        class="example-margin">
+    
+    </mat-slide-toggle>
+      </div>
+
+      
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Plannification de mesures</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Plannification de mesures</h2>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="planCapteur" #editForm="ngForm" (ngSubmit)="save()">
+    
+      <div class="form-group">
+        <label>Id</label>
+        {{planCapteur._id || 'n/a'}} 
+      </div>
+    
+      <div class="form-group">
+        <label for="capteur">Capteur</label>
+        <input [(ngModel)]="planCapteur.capteur" id="capteur" name="capteur" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="parcelle">Parcelle</label>
+        <input [(ngModel)]="planCapteur.parcelle" id="parcelle" name="parcelle" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="type">Type de plannification</label>
+        <input [(ngModel)]="planCapteur.type" id="type" name="type" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="statut">Statute</label>
+        <input [(ngModel)]="planCapteur.statut" id="statut" name="statut" class="form-control">
+      </div>
+    
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    </form>
+  </div>
+</div>

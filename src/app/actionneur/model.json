@@ -1,0 +1,57 @@
+{ 
+    "title": "Actionneurs disponibles",
+    "entity": "actionneur",
+    "api": {
+      "url": "http://localhost:5000/api/actionneur"
+    },
+    "filter": [
+ 
+
+      
+
+    ],
+    "fields": [
+
+
+      {
+        "name": "_id",
+        "label": "Id",
+        "isId": true,
+        "readonly": true,
+        "type": "number"
+      },
+
+      {
+        "name": "name",
+        "label": "Nom ",
+        "readonly": false,
+        "type": "string"
+      },
+       { "name": "type_grandeur",
+        "type": "string",
+        "label": "Element "
+      },
+
+      { "name": "description",
+        "type": "string",
+        "label": "Description"
+      },
+
+
+
+      
+      {
+        "name": "effectif",
+        "type": "number",
+        "control": "number",
+        "label": "Effectif"
+      }, 
+      
+      {
+        "name": "statut",
+        "type": "boolean",
+        "label": "Etat du l'actionneur"
+      }
+      
+    ]
+}

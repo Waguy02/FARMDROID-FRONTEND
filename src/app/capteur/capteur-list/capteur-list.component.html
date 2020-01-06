@@ -1,0 +1,59 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Capteurs disponibles</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Capteurs disponibles </h2>
+  </div>
+  <div class="content">
+    <form #f="ngForm">
+      
+      <div class="form-group">
+        <label for="type_grandeur">Grandeur mesuree:</label>
+        <input [(ngModel)]="filter.type_grandeur" id="type_grandeur" name="type_grandeur" class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="statut">Etat du capteur:</label>
+        <input [(ngModel)]="filter.statut" id="statut" name="statut" class="form-control">
+      </div>
+      
+      <button (click)="search()" [disabled]="!f?.valid" class="btn btn-primary">Rechercher</button>
+      <a [routerLink]="['../capteurs', 'new' ]" class="btn btn-default">Nouveau</a>
+    </form>
+  </div>
+</div>
+<div class="card" *ngIf="capteurList.length > 0">
+  <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+  <div class="table-responsive">
+    <table class="table table-centered table-hover mb-0" id="datatable">
+      <thead>
+        <tr>
+          
+          <th class="border-top-0" scope="col">Nom du capteur</th>
+          <th class="border-top-0" scope="col">Grandeur mesuree</th>
+          <th class="border-top-0" scope="col">Description</th>
+          <th class="border-top-0" scope="col">Effectif</th>
+          <th class="border-top-0" scope="col">Etat du capteur</th>
+          <th class="border-top-0" scope="col" style="width:120px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of capteurList" [class.active]="item === selectedCapteur">
+        
+          
+          <td>{{item.name}}</td>
+          <td>{{item.type_grandeur}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.effectif}}</td>
+          <td>{{item.statut?"actif":"inactif"}}</td>
+          <td style="white-space: nowrap">
+            <a [routerLink]="['../capteurs', item._id ]" class="btn btn-secondary">Modifier</a>&nbsp;
+            <button (click)="delete(item)" class="btn btn-danger">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

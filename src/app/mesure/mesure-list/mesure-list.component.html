@@ -1,0 +1,151 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Mesures prises</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Mesures prises </h2>
+  </div>
+  <div class="content">
+    <form #f="ngForm">
+      <a [routerLink]="['../mesures', 'new' ]" class="btn btn-default">Nouvelle mesure</a>
+    </form>
+
+
+
+
+    <div class="card">
+
+      <form>
+
+        <div class="header">
+
+          <h3 class="title"> Filtre</h3>
+        </div>
+
+        <div class="content">
+          <mat-grid-list cols="2" rowHeight="1:0.1">
+            <mat-grid-tile>
+
+
+              <div class="form-group">
+                <mat-form-field class="form-control">
+
+                  <input matInput class="form-control" placeholder="Parcelle" [matAutocomplete]="autoParcelle"
+                    [formControl]="parcelleInput" (blur)="checkParcelle()">
+
+                </mat-form-field>
+
+                <mat-autocomplete #autoParcelle="matAutocomplete" [displayWith]="displayParcelle" (optionSelected)="parcelleClick($event)">
+
+                  <mat-option *ngIf="isLoadingParcelle" class="is-loading">
+                    <mat-spinner diameter="50" style="align-self: center"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!isLoadingParcelle">
+                    <mat-option *ngFor="let parcelle of filteredParcelles" [value]="parcelle">
+                      <span>{{ parcelle.espece.name+ " [ "+parcelle.location+"]" }}</span>
+
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+
+
+
+
+
+
+              </div>
+
+
+
+
+
+            </mat-grid-tile>
+            <mat-grid-tile>
+
+              <div class="form-group">
+                <mat-form-field class="form-control">
+
+                  <input matInput class="form-control" placeholder="Capteur" [matAutocomplete]="autoCapteur"
+                    [formControl]="capteurInput" (blur)="checkCapteur()">
+
+                </mat-form-field>
+
+                <mat-autocomplete #autoCapteur="matAutocomplete" [displayWith]="displayCapteur" (optionSelected)="capteurClick($event)">
+
+                  <mat-option *ngIf="isLoadingCapteur" class="is-loading">
+                    <mat-spinner diameter="50" style="align-content: center"></mat-spinner>
+                  </mat-option>
+                  <ng-container *ngIf="!isLoadingCapteur">
+                    <mat-option *ngFor="let capteur of filteredCapteurs" [value]="capteur">
+                      <span>{{ capteur.name+" ["+capteur.type_grandeur+"]" }}</span>
+
+                    </mat-option>
+                  </ng-container>
+                </mat-autocomplete>
+
+
+
+
+
+
+              </div>
+
+
+
+
+
+
+            </mat-grid-tile>
+            <mat-grid-tile>3</mat-grid-tile>
+            <mat-grid-tile>4</mat-grid-tile>
+          </mat-grid-list>
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+
+
+
+  </div>
+
+
+
+
+
+</div>
+<div class="card" *ngIf="mesureList.length > 0">
+  <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+  <div class="table-responsive">
+    <table class="table table-centered table-hover mb-0" id="datatable">
+      <thead>
+        <tr>
+          <th class="border-top-0" scope="col">Id</th>
+          <th class="border-top-0" scope="col">Capteur</th>
+          <th class="border-top-0" scope="col">Parcelle</th>
+          <th class="border-top-0" scope="col">Valeur</th>
+          <th class="border-top-0" scope="col">Date</th>
+          <th class="border-top-0" scope="col" style="width:120px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of mesureList" [class.active]="item === selectedMesure">
+
+          <td>{{item._id}}</td>
+          <td>{{item.capteur.name+"[ " +item.capteur.type_grandeur +" ]"}}</td>
+          <td>{{item.parcelle.espece.name+ "[ Localisation : "+item.parcelle.location +" ]"}}</td>
+          <td>{{item.valeur}}</td>
+          <td>{{item.date}}</td>
+          <td style="white-space: nowrap">
+            <a [routerLink]="['../mesures', item._id ]" class="btn btn-secondary">Modifier</a>&nbsp;
+            <button (click)="delete(item)" class="btn btn-danger">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

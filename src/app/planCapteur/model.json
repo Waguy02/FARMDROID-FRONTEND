@@ -1,0 +1,50 @@
+{ 
+    "title": "Plannification de mesures",
+    "entity": "planCapteur",
+    "api": {
+      "url": "http://localhost:5000/api/plancapteur"
+    },
+    "filter": [
+      
+      
+
+      
+
+    ],
+    "fields": [
+
+
+      {
+        "name": "_id",
+        "label": "Id",
+        "isId": true,
+        "readonly": true,
+        "type": "number"
+      },
+
+    {
+        "name": "capteur",
+        "label": "Capteur",
+        "readonly": false,
+        "type": "Capteur"
+      },
+       { "name": "parcelle",
+        "type": "Parcelle",
+        "label": "Parcelle"
+      },
+
+      
+      { "name": "type",
+        "type": "String",
+        "label": "Type de plannification"
+      },
+
+  
+
+      
+      { "name": "statut",
+        "type": "Boolean",
+        "label": "Statute",
+      }
+    ]
+  }

@@ -1,0 +1,38 @@
+{ 
+    "title": "Liste des espèces",
+    "entity": "espece",
+    "api": {
+      "url": "http://localhost:5000/api/espece"
+    },
+    "filter": [
+      "type_grandeur",
+      "statut"
+
+      
+
+    ],
+    "fields": [
+
+
+      {
+        "name": "_id",
+        "label": "Id",
+        "isId": true,
+        "readonly": true,
+        "type": "number"
+      },
+
+      {
+        "name": "name",
+        "label": "Nom de l'espèce",
+        "readonly": false,
+        "type": "string"
+      },
+       { "name": "description",
+        "type": "string",
+        "label": "Description de l'espèce"
+      }
+
+      
+    ]
+}

@@ -1,0 +1,92 @@
+<ol class="breadcrumb float-right">
+  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item active">Mesures prises</li>
+</ol>
+<div class="card">
+  <div class="header">
+    <h2 class="title">Mesures prises</h2>
+  </div>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form *ngIf="mesure" #editForm="ngForm" (ngSubmit)="save()">
+    
+      <div  *ngIf="mesure._id" class="form-group">
+        <label>Id</label>
+        {{mesure._id }} 
+      </div>
+    
+    
+      <div class="form-group"  >
+          <mat-form-field class="form-control" >
+            
+            <input  matInput class="form-control" placeholder="Capteur" [matAutocomplete]="autoCapteur" [formControl]="capteurInput" (blur)="checkCapteur()">
+  
+          </mat-form-field>
+  
+          <mat-autocomplete  #autoCapteur="matAutocomplete"  [displayWith]="displayCapteur" (optionSelected)="capteurClick($event)" >
+           
+            <mat-option *ngIf="isLoadingCapteur" class="is-loading">
+              <mat-spinner diameter="50" style="align-content: center"></mat-spinner>
+            </mat-option>
+            <ng-container *ngIf="!isLoadingCapteur">
+              <mat-option *ngFor="let capteur of filteredCapteurs" [value]="capteur">
+                <span>{{ capteur.name+" ["+capteur.type_grandeur+"]" }}</span>
+  
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+  
+        
+  
+  
+  
+  
+        </div>
+
+
+      <div class="form-group"  >
+          <mat-form-field  class="form-control"  >
+            
+            <input  matInput class="form-control" placeholder="Parcelle" [matAutocomplete]="autoParcelle" [formControl]="parcelleInput" (blur)="checkParcelle()">
+  
+          </mat-form-field>
+  
+          <mat-autocomplete  #autoParcelle="matAutocomplete"  [displayWith]="displayParcelle" (optionSelected)="parcelleClick($event)" >
+           
+            <mat-option *ngIf="isLoadingParcelle" class="is-loading">
+              <mat-spinner diameter="50" style="align-self: center"></mat-spinner>
+            </mat-option>
+            <ng-container *ngIf="!isLoadingParcelle">
+              <mat-option *ngFor="let parcelle of filteredParcelles" [value]="parcelle">
+                <span>{{ parcelle.espece.name+ " [ "+parcelle.location+"]" }}</span>
+  
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+  
+        
+  
+  
+  
+  
+        </div>
+
+
+
+    
+    
+      <div class="form-group">
+        <label for="valeur">Valeur</label>
+        <input type="number" [(ngModel)]="mesure.valeur" id="valeur" name="valeur" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" [(ngModel)]="mesure.date" id="date" name="date" class="form-control">
+      </div>
+    
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    </form>
+  </div>
+</div>

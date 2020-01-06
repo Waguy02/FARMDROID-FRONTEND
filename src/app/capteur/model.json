@@ -1,0 +1,58 @@
+{ 
+    "title": "Capteurs disponibles",
+    "entity": "capteur",
+    "api": {
+      "url": "http://localhost:5000/api/capteur"
+    },
+    "filter": [
+      "type_grandeur",
+      "statut"
+
+      
+
+    ],
+    "fields": [
+
+
+      {
+        "name": "_id",
+        "label": "Id",
+        "isId": true,
+        "readonly": true,
+        "type": "string"
+      },
+
+      {
+        "name": "name",
+        "label": "Nom du capteur",
+        "readonly": false,
+        "type": "string"
+      },
+       { "name": "type_grandeur",
+        "type": "string",
+        "label": "Grandeur mesuree"
+      },
+
+      { "name": "description",
+        "type": "string",
+        "label": "Description"
+      },
+
+
+
+      
+      {
+        "name": "effectif",
+        "type": "number",
+        "control": "number",
+        "label": "Effectif"
+      }, 
+      
+      {
+        "name": "statut",
+        "type": "boolean",
+        "label": "Etat du capteur"
+      }
+      
+    ]
+}
