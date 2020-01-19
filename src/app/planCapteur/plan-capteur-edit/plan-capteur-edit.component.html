@@ -15,24 +15,84 @@
         {{planCapteur._id || 'n/a'}} 
       </div>
     
-      <div class="form-group">
-        <label for="capteur">Capteur</label>
-        <input [(ngModel)]="planCapteur.capteur" id="capteur" name="capteur" class="form-control">
-      </div>
+      <div class="form-group"  >
+          <mat-form-field  class="container" >
+            
+            <input  matInput class="form-control" placeholder="Capteur" [matAutocomplete]="autoCapteur" [formControl]="capteurInput" (blur)="checkCapteur()">
+  
+          </mat-form-field>
+  
+          <mat-autocomplete  #autoCapteur="matAutocomplete"  [displayWith]="displayCapteur" (optionSelected)="capteurClick($event)" >
+           
+            <mat-option *ngIf="isLoadingCapteur" class="is-loading">
+              <mat-spinner diameter="50" style="align-content: center"></mat-spinner>
+            </mat-option>
+            <ng-container *ngIf="!isLoadingCapteur">
+              <mat-option *ngFor="let capteur of filteredCapteurs" [value]="capteur">
+                <span>{{ capteur.name+" ["+capteur.type_grandeur+"]" }}</span>
+  
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+  
+        
+  
+  
+  
+  
+        </div>
+
+
+      <div class="form-group"  >
+          <mat-form-field class="container">
+            
+            <input  matInput class="form-control" placeholder="Parcelle" [matAutocomplete]="autoParcelle" [formControl]="parcelleInput" (blur)="checkParcelle()">
+  
+          </mat-form-field>
+  
+          <mat-autocomplete  #autoParcelle="matAutocomplete"  [displayWith]="displayParcelle" (optionSelected)="parcelleClick($event)" >
+           
+            <mat-option *ngIf="isLoadingParcelle" class="is-loading">
+              <mat-spinner diameter="50" style="align-self: center"></mat-spinner>
+            </mat-option>
+            <ng-container *ngIf="!isLoadingParcelle">
+              <mat-option *ngFor="let parcelle of filteredParcelles" [value]="parcelle">
+                <span>{{ parcelle.espece.name+ " [ "+parcelle.location+"]" }}</span>
+  
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+  
+        
+  
+  
+  
+  
+        </div>
+
     
-      <div class="form-group">
-        <label for="parcelle">Parcelle</label>
-        <input [(ngModel)]="planCapteur.parcelle" id="parcelle" name="parcelle" class="form-control">
-      </div>
-    
-      <div class="form-group">
+      <div class="form-group container">
         <label for="type">Type de plannification</label>
-        <input [(ngModel)]="planCapteur.type" id="type" name="type" class="form-control">
+        <mat-select [(ngModel)]="planCapteur.type" name="type">
+          <mat-option *ngFor="let type of types" [value]="type.id"> 
+            {{type.title}}
+</mat-option>
+
+        </mat-select>
+     
+        
       </div>
     
-      <div class="form-group">
-        <label for="statut">Statute</label>
-        <input [(ngModel)]="planCapteur.statut" id="statut" name="statut" class="form-control">
+      
+          <div class="form-group container">
+              Plannification active
+              <mat-slide-toggle
+              [checked]="planCapteur.statut"
+              (change)="planCapteur.statut =$event.source.checked"
+              class="example-margin">
+          
+          </mat-slide-toggle>
+   
       </div>
     
       <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>

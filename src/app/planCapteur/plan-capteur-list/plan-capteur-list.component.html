@@ -24,16 +24,18 @@
           <th class="border-top-0" scope="col">Capteur</th>
           <th class="border-top-0" scope="col">Parcelle</th>
           <th class="border-top-0" scope="col">Type de plannification</th>
-          <th class="border-top-0" scope="col">Statute</th>
+          <th class="border-top-0" scope="col">Statut</th>
           <th class="border-top-0" scope="col" style="width:120px"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of planCapteurList" [class.active]="item === selectedPlanCapteur">
-        
+           <script>
+             
+            </script>
           <td>{{item._id}}</td>
           <td>{{item.capteur.name}}</td>
-          <td>{{item.parcelle}}</td>
+          <td>{{item.parcelle.fullName}}</td>
           <td>{{item.type}}</td>
           <td>{{item.statut}}</td>
           <td style="white-space: nowrap">

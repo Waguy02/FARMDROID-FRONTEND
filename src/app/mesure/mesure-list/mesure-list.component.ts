@@ -116,7 +116,7 @@ export class MesureListComponent implements OnInit {
       this.selectedParcelle = null;
       return; 
     }
-    this.mesure.parcelle=this.selectedParcelle;
+    //this.mesure.parcelle=this.selectedParcelle;
   }
   
   displayParcelle(parcelle:Parcelle) {

@@ -11,4 +11,9 @@ export const CAPTEUR_ROUTES: Routes = [
     path: 'capteurs/:id',
     component: CapteurEditComponent
   }
+
+  
+
+
+
 ];

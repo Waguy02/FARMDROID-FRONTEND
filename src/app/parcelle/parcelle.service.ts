@@ -32,7 +32,7 @@ export class ParcelleService {
   }
 
   findFilter(filter: ParcelleFilter , fullMatch:boolean=false){
- 
+    if(filter==null)return this.find(new ParcelleFilter());
     return this.find(new ParcelleFilter())
    .pipe(
      tap((parcelles:Parcelle[]) => {
@@ -45,7 +45,7 @@ export class ParcelleService {
            parcelles.push(parcelle);
            
          }
-         this.parcelleList
+         this.parcelleList  
      })
      );
  }

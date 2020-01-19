@@ -34,15 +34,25 @@ export class CapteurService {
   
 
   
-  findFilter(filter: {name: any,type_grandeur:any} , fullMatch:boolean=false){
-
+  findFilter(filter: CapteurFilter, fullMatch:boolean=false){
+    
     return this.find(new CapteurFilter())
    .pipe(
      tap((capteurs:Capteur[]) => {
        var foundCapteurs=capteurs
          .map((capteur) => {var current:Capteur=new Capteur();Object.assign(current,capteur);;  return current})
          .filter(capteur => 
-          (capteur.name.toLowerCase().includes(filter.name.toLowerCase())||(capteur.type_grandeur!=null&&capteur.type_grandeur.toLowerCase().includes(filter.type_grandeur.toLowerCase())))&&capteur.statut==true)
+          {
+            try{
+              return (capteur.name.toLowerCase().includes(filter.name.toLowerCase())||(capteur.type_grandeur!=null&&capteur.type_grandeur.toLowerCase().includes(filter.type_grandeur.toLowerCase()))&&capteur.statut==true)
+              
+            }catch(e){
+              return true;
+            }
+          
+          
+          }
+          )
 
 
          capteurs.splice(0,capteurs.length);
@@ -77,7 +87,7 @@ export class CapteurService {
   find(filter: CapteurFilter): Observable<Capteur[]> {
     const params = {
       'type_grandeur': filter.type_grandeur,
-      'statut': filter.statut,
+ 
     };
 
     return this.http.get<Capteur[]>(this.api, {params, headers});
